@@ -1,33 +1,29 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Healthy Life Expectancy vs. Happiness Score (2019)",
+    "title": "Distribution of Happiness Scores (2019)",
     "data": {
       "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
       "format": {"type": "csv"}
     },
     "width": 600,
     "height": 400,
-    "mark": "circle",
+    "mark": "bar",
     "encoding": {
       "x": {
-        "field": "Healthy life expectancy",
+        "field": "Score",
         "type": "quantitative",
+        "bin": true,
         "axis": {
-          "title": "Healthy Life Expectancy"
+          "title": "Happiness Score Bins"
         }
       },
       "y": {
-        "field": "Score",
+        "aggregate": "count",
         "type": "quantitative",
         "axis": {
-          "title": "Happiness Score"
+          "title": "Number of Countries"
         }
-      },
-      "tooltip": [
-        {"field": "Country or region", "type": "ordinal"},
-        {"field": "Healthy life expectancy", "type": "quantitative"},
-        {"field": "Score", "type": "quantitative"}
-      ]
+      }
     },
     "config": {
       "background": "#F5F5F5",

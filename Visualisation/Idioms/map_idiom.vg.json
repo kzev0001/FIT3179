@@ -1,0 +1,64 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Happiness Score Across Countries in 2019",
+    "width": 800, 
+    "height": 450, 
+    "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Ocean.json",
+          "format": {
+            "type": "topojson",
+            "feature": "ocean"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#A2D5F2" 
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Land.json",
+          "format": {
+            "type": "topojson",
+            "feature": "land"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#F5E7A2"
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Countries.json",
+          "format": {
+            "type": "topojson",
+            "feature": "Map"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#D9D9D9", 
+          "stroke": "#3E3E3E", 
+          "strokeWidth": 0.5
+        },
+        "encoding": {
+          "tooltip": [
+            {
+              "field": "properties.ADMIN",
+              "type": "nominal",
+              "title": "Country"
+            }
+          ]
+        }
+      }
+    ],
+    "config": {
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+  }
+  

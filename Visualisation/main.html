@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.18.2"></script>
+    <title>Global Happiness Scores</title>
+</head>
+<body>
+    <header>
+        <h1>Exploring Global Happiness in 2019</h1>
+        <p>
+            Welcome to an insightful journey into the world's happiness scores in 2019. Here, we don't just present data; we explore stories, dive into cultural nuances, and understand the profound impact of well-being on societal progress.
+        </p>
+    </header>
+
+    <main>
+        <section class="visualization-section">
+            <article class="visualization-container">
+                <div class="vis-wrap">
+                    <h2>The Global Happiness Landscape</h2>
+                    <div id="map" class="vis"></div>
+                </div>
+                <div class="desc-wrap">
+                    <p>
+                        Our map not only paints a picture of happiness across continents but also delves deep into the fabric of societies. Each region has its unique narrative, influenced by myriad factors ranging from economic stability, cultural values, to governance. Hover over each country to glimpse into its happiness score - a metric that often reflects deeper societal dynamics than one might presume.
+                    </p>
+                </div>
+            </article>
+
+            <article class="visualization-container">
+                <div class="vis-wrap">
+                    <h2>Decoding Happiness: A Global Distribution</h2>
+                    <div id="histogram" class="vis"></div>
+                </div>
+                <div class="desc-wrap">
+                    <p>
+                        This histogram is more than a mere distribution of scores; it's a narrative of global aspirations, challenges, and achievements. While some countries bask in the higher echelons of happiness, others strive to enhance their citizen's well-being. Dive into this distribution to understand global patterns and perhaps, the universal quest for a happier tomorrow.
+                    </p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            Passionately crafted with data from [Your Data Source Name]. In a world striving for happiness, understanding it is our first step towards a brighter, more joyful future. Created by [Your Name or Organization].
+        </p>
+    </footer>
+
+    <!-- Vega-Lite Visualization Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Map Visualization
+            const mapSpec = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "title": "Happiness Score Across Countries in 2019",
+                "width": 800,
+                "height": 450,
+                "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Ocean.json",
+          "format": {
+            "type": "topojson",
+            "feature": "ocean"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#A2D5F2" 
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Land.json",
+          "format": {
+            "type": "topojson",
+            "feature": "land"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#F5E7A2"
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Countries.json",
+          "format": {
+            "type": "topojson",
+            "feature": "Map"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#D9D9D9", 
+          "stroke": "#3E3E3E", 
+          "strokeWidth": 0.5
+        },
+        "encoding": {
+          "tooltip": [
+            {
+              "field": "properties.ADMIN",
+              "type": "nominal",
+              "title": "Country"
+            }
+          ]
+        }
+      }
+    ],
+    "config": {
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+            };
+            vegaEmbed('#map', mapSpec);
+
+            // Histogram Visualization
+            const histogramSpec = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "title": "Distribution of Happiness Scores (2019)",
+                "data": {
+                    "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
+                    "format": {"type": "csv"}
+                },
+                "width": 600,
+                "height": 400,
+                "mark": {
+                    "type": "bar",
+                    "tooltip": true,
+                    "cornerRadiusTopLeft": 3,
+                    "cornerRadiusTopRight": 3
+                },
+                "encoding": {
+                    "x": {
+                        "field": "Score",
+                        "type": "quantitative",
+                        "bin": true, 
+                        "axis": {
+                            "title": "Happiness Score Bins",
+                            "labelFontSize": 12,
+                            "titleFontSize": 14
+                        }
+                    },
+                    "y": {
+                    "aggregate": "count",  
+                    "type": "quantitative",
+                    "axis": {
+                    "title": "Number of Countries",
+                    "labelFontSize": 12,
+                    "titleFontSize": 14
+                }
+            },
+            "color": {
+            "aggregate": "mean", 
+            "field": "Score",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "viridis"
+            },
+            "legend": {
+            "title": "Average Happiness Score"
+        }
+    }
+},
+    "config": {
+      "background": "#F5F5F5",
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+            };
+            vegaEmbed('#histogram', histogramSpec);
+        });
+    </script>
+</body>
+</html>

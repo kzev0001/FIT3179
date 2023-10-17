@@ -1,5 +1,5 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Serif', sans-serif;
     background-image: linear-gradient(to bottom right, #FFDDA7, #FFB3BA);
     color: #2F4F4F;
     margin: 0;
@@ -28,7 +28,7 @@ h1 {
 }
 
 main {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 225, 187, 0.756);
     border-radius: 15px;
     padding: 2rem 3rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -48,14 +48,15 @@ h2 {
 }
 
 #map {
-    width: 820px;
-    height: 470px;
+    width: 770px;
+    height: 500px;
 }
 
 #histogram {
-    width: 620px;
-    height: 420px;
+    width: 770px;
+    height: 500px;
 }
+
 
 footer {
     text-align: center;

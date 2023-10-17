@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.18.2"></script>
+    <title>Global Happiness Scores in 2019</title>
+</head>
+<body>
+    <header>
+        <h1>Exploring Global Happiness in 2019</h1>
+        <p>
+            Welcome to an insightful journey into the world's happiness scores in 2019. Here, we don't just present data; we investigate, we study them, we explore stories, dive into different variables, and understand the profound impact of well-being on societal progress in 2019.
+        </p>
+    </header>
+
+    <main>
+        <section class="visualization-section">
+            <article class="visualization-container">
+                <div class="vis-wrap">
+                    <h2>The Global Happiness Landscape</h2>
+                    <div id="map" class="vis"></div>
+                </div>
+                <div class="desc-wrap">
+                    <p>
+                        Our map not only paints a picture of happiness across continents but also delves deep into the fabric of societies. Each region has its unique scores, influenced by myriad factors ranging from economic stability, cultural values, to governance. Hover over each country to glimpse into their world rank and its happiness score - a metric that often reflects deeper societal dynamics than one might presume.
+                    </p>
+                    <p>
+                      Our map paints the difference of happiness score across region showing the comparison between regions easily. Simply shown, majority of the West-side countries are happier as the color grows darker and darker.
+                    </p>
+                </div>
+            </article>
+
+            <article class="visualization-container">
+                <div class="vis-wrap">
+                    <h2>Decoding Happiness: A Global Distribution</h2>
+                    <div id="histogram" class="vis"></div>
+                </div>
+                <div class="desc-wrap">
+                    <p>
+                        This histogram is more than a mere distribution of scores; it's a narrative of global aspirations, challenges, and achievements. While some countries bask in the higher echelons of happiness, others strive to enhance their citizen's well-being. Dive into this distribution to understand global patterns and perhaps, the universal quest for a happier tomorrow.
+                    </p>
+                    <p>
+                        The histogram shows values that are unsurprsing. A count of 28 countries has an average of 6.2 happiness score. With challenges that life tackles, the majority of the countries remains happy.
+                    </p>
+                </div>
+            </article>
+
+            <article class="visualization-container">
+              <div class="vis-wrap">
+                  <h2>Top 20 Countries by GDP per Capita</h2>
+                  <div id="barchart" class="vis"></div>
+              </div>
+              <div class="desc-wrap">
+                  <p>
+                      The bar chart showcases the top 20 countries based on their GDP per capita. The economic strength of a nation often correlates with the happiness of its residents.
+                  </p>
+
+                  <p>
+                    The bar chart shines the 20 countries that are known for their GDP per capita. A nation's economic well-being has been chosen to show the highest happiness factor is their economic state. Qatar has shine the brightest, havinng the most economic well-being and being in the top 20 country to have great happiness score.
+                  </p>
+              </div>
+          </article>
+
+          <article class="visualization-container">
+            <div class="vis-wrap">
+                <h2>Life Expectancy vs. Happiness Score</h2>
+                <div id="scatterplot" class="vis"></div>
+            </div>
+            <div class="desc-wrap">
+                <p>
+                    Explore the relationship between a country's average life expectancy and its happiness score. Notice how these two factors often go hand in hand.
+                </p>
+
+                <p>
+                    Understand and acknowledge the power of happiness can prolong the nation's life expectancy. Correlation of GDP per Capita to affect the happiness score and following up with life expectancy to be affected, there is a chain that is being presented. 
+                </p>
+            </div>
+        </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            In a world striving for happiness, understanding happiness is our first step towards a brighter and more joyful future. Let us create a happier world! 
+            Passionately crafted by [Kayla Zevanya (32810806)].
+        </p>
+    </footer>
+
+    <!-- Vega-Lite Visualization Scripts -->
+    <script src="script.js">
+        document.addEventListener("DOMContentLoaded", function() {
+            // Map Visualization
+            const mapSpec = {
+              "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+              "title": "Happiness Score Across Countries in 2019",
+              "width": 720, 
+              "height": 450,
+              "layer": [
+                {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Ocean.json",
+                  "format": {
+                  "type": "topojson",
+                  "feature": "ocean"
+                }
+              },
+              "mark": {
+              "type": "geoshape",
+              "fill": "coral"
+            }
+          },
+          {
+          "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Land.json",
+          "format": {
+            "type": "topojson",
+            "feature": "land"
+          }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#e2bc00"
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Idioms/Map/Countries.json",
+          "format": {
+            "type": "topojson",
+            "feature": "Map"
+          }
+        },
+        "transform": [
+          {
+            "lookup": "properties.NAME_EN",
+            "from": {
+              "data": {
+                "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv"
+              },
+              "key": "Country or region",
+              "fields": ["Country or region", "Overall rank", "Score"]
+            }
+          }
+        ],
+        "mark": {
+          "type": "geoshape",
+          "stroke": "#000000",
+          "strokeWidth": 0.5
+        },
+        "encoding": {
+          "color": {
+            "field": "Score",
+            "type": "quantitative",
+            "scale": {
+              "domain": [2.5, 8],
+              "range": ["#d9f0a3", "#1b7837"],
+              "nullValue": "#d9d9d9"
+            },
+            "legend": {
+              "title": "Happiness Score",
+              "gradientLength": 200
+            }
+          },
+          "tooltip": [
+            {
+              "field": "properties.NAME_EN",
+              "type": "nominal",
+              "title": "Country"
+            },
+            {
+              "field": "Overall rank",
+              "type": "quantitative",
+              "title": "Overall Rank"
+            },
+            {
+              "field": "Score",
+              "type": "quantitative",
+              "title": "Happiness Score"
+            }
+          ]
+        }
+      }
+    ],
+    "config": {
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+  };
+            vegaEmbed('#map', mapSpec);
+
+            // Histogram Visualization
+            const histogramSpec = {
+              "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+              "title": "Distribution of Happiness Scores (2019)",
+              "data": {
+                "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
+                "format": {"type": "csv"}
+              },
+                "width": 600,
+                "height": 400,
+                "mark": {
+                  "type": "bar",
+                  "tooltip": true,
+                  "cornerRadiusTopLeft": 3,
+                  "cornerRadiusTopRight": 3
+                },
+                "encoding": {
+                  "x": {
+                    "field": "Score",
+                    "type": "quantitative",
+                    "bin": true,  
+                    "axis": {
+                      "title": "Happiness Score",
+                      "labelFontSize": 12,
+                      "titleFontSize": 14
+                    }
+                  },
+                  "y": {
+                    "aggregate": "count",  
+                    "type": "quantitative",
+                      "axis": {
+                        "title": "Number of Countries",
+                        "labelFontSize": 12,
+                        "titleFontSize": 14
+                      }
+                    },
+                    "color": {
+                      "aggregate": "mean",  
+                      "field": "Score",
+                      "type": "quantitative",
+                      "scale": {
+                        "scheme": "viridis"
+                      },
+                      "legend": {
+                        "title": "Average Happiness Score"
+                      }
+                    }
+                  },
+                  "config": {
+                    "background": "#F5F5F5",
+                    "view": {
+                      "stroke": "transparent"
+                    }
+                  }
+                };
+                vegaEmbed('#histogram', histogramSpec);
+
+            // Barchart Visualization
+            const barchartspec = {
+              "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+              "title": "Top 20 Countries by GDP per Capita (2019)",
+              "data": {
+              "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
+              "format": {"type": "csv"}
+            },
+            "width": 600,
+            "height": 400,
+            "mark": {
+              "type": "bar",
+              "tooltip": true,
+              "cornerRadiusTopLeft": 3,
+              "cornerRadiusTopRight": 3
+            },
+            "encoding": {
+              "x": {
+                "field": "Country or region",
+                "type": "ordinal",
+                "axis": {
+                  "title": "Country",
+                  "labelAngle": -45,
+                  "labelFontSize": 10,
+                  "titleFontSize": 12
+                }
+              },
+              "y": {
+              "field": "GDP per capita",
+              "type": "quantitative",
+              "axis": {
+                "title": "GDP per Capita",
+                "labelFontSize": 10,
+                "titleFontSize": 12
+              }
+            },
+            "color": {
+            "field": "GDP per capita",
+            "type": "quantitative",
+            "scale": {
+              "scheme": "greens"
+            },
+            "legend": {
+            "title": "GDP per Capital"
+          }
+        }
+      },
+      "transform": [
+      {
+        "window": [{"op": "row_number", "as": "rank"}],
+        "sort": [{"field": "GDP per capita", "order": "descending"}]
+      },
+      {
+        "filter": "datum.rank <= 20"
+      }
+    ],
+    "config": {
+      "background": "#F5F5F5",
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+            };
+            vegaEmbed('#barchart', barchartspec);
+
+            // scatterplot Visualization
+            const scatterspec = {
+              "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+              "title": "Life Expectancy vs. Happiness Score (2019)",
+              "data": {
+              "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
+              "format": {"type": "csv"}
+            },
+              "width": 600,
+              "height": 400,
+              "mark": {
+              "type": "circle",
+              "tooltip": true
+            },
+            "encoding": {
+              "x": {
+                "field": "Healthy life expectancy",
+                "type": "quantitative",
+                  "axis": {
+                  "title": "Life Expectancy",
+                  "labelFontSize": 12,
+                  "titleFontSize": 14
+                }
+              },
+              "y": {
+              "field": "Score",
+              "type": "quantitative",
+              "axis": {
+                "title": "Happiness Score",
+                "labelFontSize": 12,
+                "titleFontSize": 14
+              }
+            },
+            "color": {
+            "field": "GDP per capita",
+            "type": "quantitative",
+            "scale": {
+            "scheme": "viridis"
+          },
+          "legend": {
+          "title": "GDP per Capita"
+        }
+      },
+      "size": {
+        "field": "GDP per capita",
+        "type": "quantitative",
+        "legend": {
+            "title": "GDP per Capita"
+          },
+          "scale": {
+            "range": [10, 400]
+          }
+        },
+    "tooltip": [
+      {"field": "Country or region", "type": "ordinal"},
+      {"field": "Healthy life expectancy", "type": "quantitative"},
+      {"field": "Score", "type": "quantitative"},
+      {"field": "GDP per capita", "type": "quantitative"}
+    ]
+  },
+    "config": {
+      "background": "#F5F5F5",
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+            };
+            vegaEmbed('#scatterplot', scatterspec);
+        });
+    </script>
+</body>
+</html>

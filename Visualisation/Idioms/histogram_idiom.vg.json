@@ -7,21 +7,41 @@
     },
     "width": 600,
     "height": 400,
-    "mark": "bar",
+    "mark": {
+      "type": "bar",
+      "tooltip": true,
+      "cornerRadiusTopLeft": 3,
+      "cornerRadiusTopRight": 3
+    },
     "encoding": {
       "x": {
         "field": "Score",
         "type": "quantitative",
-        "bin": true,
+        "bin": true,  
         "axis": {
-          "title": "Happiness Score Bins"
+          "title": "Happiness Score",
+          "labelFontSize": 12,
+          "titleFontSize": 14
         }
       },
       "y": {
-        "aggregate": "count",
+        "aggregate": "count",  
         "type": "quantitative",
         "axis": {
-          "title": "Number of Countries"
+          "title": "Number of Countries",
+          "labelFontSize": 12,
+          "titleFontSize": 14
+        }
+      },
+      "color": {
+        "aggregate": "mean",  
+        "field": "Score",
+        "type": "quantitative",
+        "scale": {
+          "scheme": "viridis"
+        },
+        "legend": {
+          "title": "Average Happiness Score"
         }
       }
     },
@@ -32,4 +52,3 @@
       }
     }
 }
-

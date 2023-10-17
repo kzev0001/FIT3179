@@ -1,39 +1,66 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Healthy Life Expectancy vs. Happiness Score (2019)",
-    "data": {
-      "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
-      "format": {"type": "csv"}
-    },
-    "width": 600,
-    "height": 400,
-    "mark": "circle",
-    "encoding": {
-      "x": {
-        "field": "Healthy life expectancy",
-        "type": "quantitative",
-        "axis": {
-          "title": "Healthy Life Expectancy"
-        }
-      },
-      "y": {
-        "field": "Score",
-        "type": "quantitative",
-        "axis": {
-          "title": "Happiness Score"
-        }
-      },
-      "tooltip": [
-        {"field": "Country or region", "type": "ordinal"},
-        {"field": "Healthy life expectancy", "type": "quantitative"},
-        {"field": "Score", "type": "quantitative"}
-      ]
-    },
-    "config": {
-      "background": "#F5F5F5",
-      "view": {
-        "stroke": "transparent"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Life Expectancy vs. Happiness Score (2019)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/kzev0001/FIT3179/main/Visualisation/Dataset/2019.csv",
+    "format": {"type": "csv"}
+  },
+  "width": 600,
+  "height": 400,
+  "mark": {
+    "type": "circle",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Healthy life expectancy",
+      "type": "quantitative",
+      "axis": {
+        "title": "Life Expectancy",
+        "labelFontSize": 12,
+        "titleFontSize": 14
       }
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "axis": {
+        "title": "Happiness Score",
+        "labelFontSize": 12,
+        "titleFontSize": 14
+      }
+    },
+    "color": {
+      "field": "GDP per capita",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "viridis"
+      },
+      "legend": {
+        "title": "GDP per Capita"
+      }
+    },
+    "size": {
+      "field": "GDP per capita",
+      "type": "quantitative",
+      "legend": {
+        "title": "GDP per Capita"
+      },
+      "scale": {
+        "range": [10, 400]
+      }
+    },
+    "tooltip": [
+      {"field": "Country or region", "type": "ordinal"},
+      {"field": "Healthy life expectancy", "type": "quantitative"},
+      {"field": "Score", "type": "quantitative"},
+      {"field": "GDP per capita", "type": "quantitative"}
+    ]
+  },
+  "config": {
+    "background": "#f5f5f5",
+    "view": {
+      "stroke": "transparent"
     }
+  }
 }
-
